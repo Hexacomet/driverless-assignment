@@ -65,6 +65,22 @@ def associate(map_points: Map, observations: List[Point]) -> List[Tuple[int, int
         tuples, e.g. ``[(0, 12), (3, 5)]`` means that observation 12 was
         generated from map point 0, and observation 5 from map point 3.
     """
+
+    Map_len = len(map_points)   #length of list map
+    Obs_len = len(observations) #length of list observations
+    associations = []
+
+    for i in range(Obs_len):
+        m = {}  # key := d(i-j) ; value := map index
+
+        for j in range(Map_len):
+            d = math.dist(observations[i], map_points[j])   #compute euclidean distance
+            m[d] = j
+        
+        min_d = min(m.keys()) #gives the minimum distance
+        associations.append((m[min_d], i))
+    
+    return associations
     raise NotImplementedError("Step 3 (data association) is yours to implement")
 
 
