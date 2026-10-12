@@ -104,6 +104,23 @@ def correct_map(
         The corrected map: a list of ``(x, y)`` tuples with the same length
         and the same order as ``map_points``.
     """
+
+    Map_len = len(map_points)   
+    Obs_len = len(observations)
+    assoc_dict = dict(associations) #it transforms every tuple in the list in a key:value
+    Map_Corrected = []
+
+    for i in range(Map_len):
+
+        if i in assoc_dict:
+            x = (map_points[i][0] + observations[assoc_dict[i]][0]) / 2
+            y = (map_points[i][1] + observations[assoc_dict[i]][1]) / 2
+            Map_Corrected.append((x,y))
+        
+        else:
+            Map_Corrected.append(map_points[i])
+                
+    return Map_Corrected
     raise NotImplementedError("Step 4 (map correction) is yours to implement")
 
 
@@ -128,6 +145,13 @@ def find_path(corrected_map: Map) -> List[int]:
       arrow (arrows that only touch at a shared node do not count as
       crossings). You can check it visually with ``visualize_path``.
     """
+    visited = set()
+    current_node = corrected_map[0]
+    visited.add(current_node)
+
+    
+
+
     raise NotImplementedError("Step 5 (path finding) is yours to implement")
 
 
