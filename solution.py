@@ -145,13 +145,22 @@ def find_path(corrected_map: Map) -> List[int]:
       arrow (arrows that only touch at a shared node do not count as
       crossings). You can check it visually with ``visualize_path``.
     """
-    visited = set()
-    current_node = corrected_map[0]
-    visited.add(current_node)
-
     
+    #nearest neighbour
+    not_visited = {i: corrected_map[i] for i in range(len(corrected_map))}
+    current_node = not_visited[0]
+    del not_visited[0]
+    path = [0]
 
+    while not_visited:
+        dict_DistNodes = {math.dist(current_node, nearest_node): index for index, nearest_node in not_visited.items()}  #dict euclidean distance to index nearest neighbour
+        min_dist = min(list(dict_DistNodes.keys()))
+        min_index = dict_DistNodes[min_dist]
+        path.append(min_index)
+        current_node = not_visited[min_index]
+        del not_visited[min_index]
 
+    return path
     raise NotImplementedError("Step 5 (path finding) is yours to implement")
 
 
